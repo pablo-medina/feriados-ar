@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1755540780811,
+  "timestamp": 1755541793634,
   "index": "https://pablo-medina.github.io/feriados-ar/index.html",
   "assetGroups": [
     {
@@ -15,10 +15,10 @@
         "https://pablo-medina.github.io/feriados-ar/chunk-KTGECXW7.js",
         "https://pablo-medina.github.io/feriados-ar/favicon.ico",
         "https://pablo-medina.github.io/feriados-ar/index.html",
-        "https://pablo-medina.github.io/feriados-ar/main-KO7ENRON.js",
+        "https://pablo-medina.github.io/feriados-ar/main-3VJGQXL3.js",
         "https://pablo-medina.github.io/feriados-ar/manifest.webmanifest",
         "https://pablo-medina.github.io/feriados-ar/polyfills-SCHOHYNV.js",
-        "https://pablo-medina.github.io/feriados-ar/styles-2C5K4TSS.css"
+        "https://pablo-medina.github.io/feriados-ar/styles-SPKWB3AK.css"
       ],
       "patterns": []
     },
@@ -70,11 +70,11 @@
     "https://pablo-medina.github.io/feriados-ar/icons/icon-512x512.png": "1de182f76f7329dfa8f9fcdd1fdcdd695bea6a99",
     "https://pablo-medina.github.io/feriados-ar/icons/icon-72x72.png": "aa88a6096bd973be7f6d7a5489bfa6bc2463f8c4",
     "https://pablo-medina.github.io/feriados-ar/icons/icon-96x96.png": "7fb8f59c30ce2ff12c700321a0b39e14b3dc8f95",
-    "https://pablo-medina.github.io/feriados-ar/index.html": "21157beb1fedba15366fb95f155c14cf8fcbb558",
-    "https://pablo-medina.github.io/feriados-ar/main-KO7ENRON.js": "686fcf96747fc3ec464f1a5a96653bd783b427c4",
+    "https://pablo-medina.github.io/feriados-ar/index.html": "e28d963bcab76a10ed6cbecdb6b32e0de32b4ce5",
+    "https://pablo-medina.github.io/feriados-ar/main-3VJGQXL3.js": "9069d5d62fd3185dfc530ff7c2c8e66db8712d6e",
     "https://pablo-medina.github.io/feriados-ar/manifest.webmanifest": "5a0be36e3f2aa511d3131da9693c1a2608a733dc",
     "https://pablo-medina.github.io/feriados-ar/polyfills-SCHOHYNV.js": "d45c76c5960bab3ace7fd6d211b9579456241f8a",
-    "https://pablo-medina.github.io/feriados-ar/styles-2C5K4TSS.css": "a6c5d0ce9b0252b13578a0e62f75debc73fc94a6"
+    "https://pablo-medina.github.io/feriados-ar/styles-SPKWB3AK.css": "18b5c11d63db0216d83c0c7b1d8dd42265840e58"
   },
   "navigationUrls": [
     {
