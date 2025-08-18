@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Íconos - Feriados Argentina</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .icon-preview {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .icon-preview svg {
+            width: 200px;
+            height: 200px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .sizes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .size-item {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .size-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .size-item canvas {
+            border-radius: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        }
+        
+        .download-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin: 5px;
+        }
+        
+        .download-btn:hover {
+            background: #45a049;
+            transform: scale(1.05);
+        }
+        
+        .download-all-btn {
+            background: #2196F3;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            margin: 20px auto;
+            display: block;
+        }
+        
+        .download-all-btn:hover {
+            background: #1976D2;
+            transform: scale(1.05);
+        }
+        
+        .instructions {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .instructions h3 {
+            margin-top: 0;
+            color: #FFD700;
+        }
+        
+        .instructions ol {
+            text-align: left;
+        }
+        
+        .instructions li {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📅 Generador de Íconos</h1>
+        <h2 style="text-align: center; margin-bottom: 20px;">Feriados Argentina</h2>
+        
+        <div class="icon-preview">
+            <h3>Vista Previa del Ícono</h3>
+            <svg width="200" height="200" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                <!-- Fondo circular -->
+                <circle cx="256" cy="256" r="256" fill="#667eea"/>
+                
+                <!-- Header del calendario (rectángulo azul claro) -->
+                <rect x="120" y="120" width="272" height="80" rx="12" fill="#87CEEB"/>
+                
+                <!-- Agujeros del calendario (círculos blancos) -->
+                <circle cx="160" cy="160" r="8" fill="white"/>
+                <circle cx="352" cy="160" r="8" fill="white"/>
+                
+                <!-- Cuerpo del calendario (rectángulo blanco con esquinas redondeadas) -->
+                <rect x="120" y="200" width="272" height="272" rx="12" fill="white"/>
+                
+                <!-- Líneas de la grilla del calendario -->
+                <!-- Líneas verticales -->
+                <line x1="157" y1="200" x2="157" y2="472" stroke="#E0E0E0" stroke-width="2"/>
+                <line x1="194" y1="200" x2="194" y2="472" stroke="#E0E0E0" stroke-width="2"/>
+                <line x1="231" y1="200" x2="231" y2="472" stroke="#E0E0E0" stroke-width="2"/>
+                <line x1="268" y1="200" x2="268" y2="472" stroke="#E0E0E0" stroke-width="2"/>
+                <line x1="305" y1="200" x2="305" y2="472" stroke="#E0E0E0" stroke-width="2"/>
+                <line x1="342" y1="200" x2="342" y2="472" stroke="#E0E0E0" stroke-width="2"/>
+                <line x1="379" y1="200" x2="379" y2="472" stroke="#E0E0E0" stroke-width="2"/>
+                
+                <!-- Líneas horizontales -->
+                <line x1="120" y1="237" x2="392" y2="237" stroke="#E0E0E0" stroke-width="2"/>
+                <line x1="120" y1="274" x2="392" y2="274" stroke="#E0E0E0" stroke-width="2"/>
+                <line x1="120" y1="311" x2="392" y2="311" stroke="#E0E0E0" stroke-width="2"/>
+                <line x1="120" y1="348" x2="392" y2="348" stroke="#E0E0E0" stroke-width="2"/>
+                <line x1="120" y1="385" x2="392" y2="385" stroke="#E0E0E0" stroke-width="2"/>
+                <line x1="120" y1="422" x2="392" y2="422" stroke="#E0E0E0" stroke-width="2"/>
+                <line x1="120" y1="459" x2="392" y2="459" stroke="#E0E0E0" stroke-width="2"/>
+                
+                <!-- Punto rojo en el centro (cuarta columna, tercera fila) -->
+                <circle cx="268" cy="311" r="12" fill="#FF4444"/>
+            </svg>
+        </div>
+        
+        <div class="instructions">
+            <h3>📋 Instrucciones</h3>
+            <ol>
+                <li>Haz clic en "Descargar Todos" para generar todos los tamaños</li>
+                <li>O descarga individualmente cada tamaño que necesites</li>
+                <li>Reemplaza los archivos existentes en <code>public/icons/</code></li>
+                <li>Haz un build de la aplicación</li>
+                <li>¡Tu PWA tendrá el nuevo ícono!</li>
+            </ol>
+        </div>
+        
+        <div class="sizes-grid" id="sizesGrid">
+            <!-- Los íconos se generarán aquí dinámicamente -->
+        </div>
+        
+        <button class="download-all-btn" onclick="downloadAllIcons()">
+            📥 Descargar Todos los Íconos
+        </button>
+    </div>
+
+    <script>
+        const iconSizes = [72, 96, 128, 144, 152, 192, 384, 512];
+        
+        // Función para generar el SVG como string
+        function generateSVG(size) {
+            return `<svg width="${size}" height="${size}" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                <!-- Fondo circular -->
+                <circle cx="256" cy="256" r="256" fill="#667eea"/>
+                
+                <!-- Header del calendario (rectángulo azul claro) -->
+                <rect x="120" y="120" width="272" height="80" rx="12" fill="#87CEEB"/>
+                
+                <!-- Agujeros del calendario (círculos blancos) -->
+                <circle cx="160" cy="160" r="8" fill="white"/>
+                <circle cx="352" cy="160" r="8" fill="white"/>
+                
+                <!-- Cuerpo del calendario (rectángulo blanco con esquinas redondeadas) -->
+                <rect x="120" y="200" width="272" height="272" rx="12" fill="white"/>
+                
+                <!-- Líneas de la grilla del calendario -->
+                <!-- Líneas verticales -->
+                <line x1="157" y1="200" x2="157" y2="472" stroke="#E0E0E0" stroke-width="2"/>
+                <line x1="194" y1="200" x2="194" y2="472" stroke="#E0E0E0" stroke-width="2"/>
+                <line x1="231" y1="200" x2="231" y2="472" stroke="#E0E0E0" stroke-width="2"/>
+                <line x1="268" y1="200" x2="268" y2="472" stroke="#E0E0E0" stroke-width="2"/>
+                <line x1="305" y1="200" x2="305" y2="472" stroke="#E0E0E0" stroke-width="2"/>
+                <line x1="342" y1="200" x2="342" y2="472" stroke="#E0E0E0" stroke-width="2"/>
+                <line x1="379" y1="200" x2="379" y2="472" stroke="#E0E0E0" stroke-width="2"/>
+                
+                <!-- Líneas horizontales -->
+                <line x1="120" y1="237" x2="392" y2="237" stroke="#E0E0E0" stroke-width="2"/>
+                <line x1="120" y1="274" x2="392" y2="274" stroke="#E0E0E0" stroke-width="2"/>
+                <line x1="120" y1="311" x2="392" y2="311" stroke="#E0E0E0" stroke-width="2"/>
+                <line x1="120" y1="348" x2="392" y2="348" stroke="#E0E0E0" stroke-width="2"/>
+                <line x1="120" y1="385" x2="392" y2="385" stroke="#E0E0E0" stroke-width="2"/>
+                <line x1="120" y1="422" x2="392" y2="422" stroke="#E0E0E0" stroke-width="2"/>
+                <line x1="120" y1="459" x2="392" y2="459" stroke="#E0E0E0" stroke-width="2"/>
+                
+                <!-- Punto rojo en el centro (cuarta columna, tercera fila) -->
+                <circle cx="268" cy="311" r="12" fill="#FF4444"/>
+            </svg>`;
+        }
+        
+        // Función para convertir SVG a PNG usando canvas
+        function svgToPng(svgString, size) {
+            return new Promise((resolve) => {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                const img = new Image();
+                
+                canvas.width = size;
+                canvas.height = size;
+                
+                img.onload = function() {
+                    ctx.drawImage(img, 0, 0, size, size);
+                    resolve(canvas);
+                };
+                
+                const svgBlob = new Blob([svgString], {type: 'image/svg+xml'});
+                const url = URL.createObjectURL(svgBlob);
+                img.src = url;
+            });
+        }
+        
+        // Función para descargar un ícono
+        async function downloadIcon(size) {
+            const svgString = generateSVG(size);
+            const canvas = await svgToPng(svgString, size);
+            
+            canvas.toBlob((blob) => {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `icon-${size}x${size}.png`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            });
+        }
+        
+        // Función para descargar todos los íconos
+        async function downloadAllIcons() {
+            for (const size of iconSizes) {
+                await downloadIcon(size);
+                // Pequeña pausa para evitar problemas con el navegador
+                await new Promise(resolve => setTimeout(resolve, 100));
+            }
+        }
+        
+        // Función para generar la vista previa de todos los tamaños
+        async function generatePreviews() {
+            const grid = document.getElementById('sizesGrid');
+            
+            for (const size of iconSizes) {
+                const item = document.createElement('div');
+                item.className = 'size-item';
+                
+                const canvas = await svgToPng(generateSVG(size), Math.min(size, 100));
+                
+                item.innerHTML = `
+                    <canvas width="${Math.min(size, 100)}" height="${Math.min(size, 100)}"></canvas>
+                    <div><strong>${size}x${size}</strong></div>
+                    <button class="download-btn" onclick="downloadIcon(${size})">
+                        📥 Descargar
+                    </button>
+                `;
+                
+                const ctx = item.querySelector('canvas').getContext('2d');
+                ctx.drawImage(canvas, 0, 0, Math.min(size, 100), Math.min(size, 100));
+                
+                grid.appendChild(item);
+            }
+        }
+        
+        // Inicializar cuando se carga la página
+        window.onload = generatePreviews;
+    </script>
+</body>
+</html>
