@@ -1,0 +1,98 @@
+{
+  "configVersion": 1,
+  "timestamp": 1755540093814,
+  "index": "https://pablo-medina.github.io/feriados-ar/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "https://pablo-medina.github.io/feriados-ar/chunk-24OX67ND.js",
+        "https://pablo-medina.github.io/feriados-ar/chunk-KTGECXW7.js",
+        "https://pablo-medina.github.io/feriados-ar/favicon.ico",
+        "https://pablo-medina.github.io/feriados-ar/index.html",
+        "https://pablo-medina.github.io/feriados-ar/main-KO7ENRON.js",
+        "https://pablo-medina.github.io/feriados-ar/manifest.webmanifest",
+        "https://pablo-medina.github.io/feriados-ar/polyfills-SCHOHYNV.js",
+        "https://pablo-medina.github.io/feriados-ar/styles-2C5K4TSS.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "https://pablo-medina.github.io/feriados-ar/icons/icon-128x128.png",
+        "https://pablo-medina.github.io/feriados-ar/icons/icon-144x144.png",
+        "https://pablo-medina.github.io/feriados-ar/icons/icon-152x152.png",
+        "https://pablo-medina.github.io/feriados-ar/icons/icon-192x192.png",
+        "https://pablo-medina.github.io/feriados-ar/icons/icon-384x384.png",
+        "https://pablo-medina.github.io/feriados-ar/icons/icon-512x512.png",
+        "https://pablo-medina.github.io/feriados-ar/icons/icon-72x72.png",
+        "https://pablo-medina.github.io/feriados-ar/icons/icon-96x96.png"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "feriados-api",
+      "patterns": [
+        "https:\\/\\/api\\.argentinadatos\\.com\\/v1\\/feriados\\/.*"
+      ],
+      "strategy": "freshness",
+      "maxSize": 10,
+      "maxAge": 31536000000,
+      "timeoutMs": 10000,
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "version": 1
+    }
+  ],
+  "hashTable": {
+    "https://pablo-medina.github.io/feriados-ar/chunk-24OX67ND.js": "732ed83e90beb01f46e9c3e5f42d73ffae2a25a1",
+    "https://pablo-medina.github.io/feriados-ar/chunk-KTGECXW7.js": "4d4df3e9db4432e87e811322667a9208887f0dfa",
+    "https://pablo-medina.github.io/feriados-ar/favicon.ico": "9c39f434fe1261f68c5e3eefdf734630d99c5670",
+    "https://pablo-medina.github.io/feriados-ar/icons/icon-128x128.png": "f912963bdc6d5a38d8f1dd0afbaab2ce8d657acb",
+    "https://pablo-medina.github.io/feriados-ar/icons/icon-144x144.png": "b155fd5f2fd5d2ea7760721063003c4cd95fd783",
+    "https://pablo-medina.github.io/feriados-ar/icons/icon-152x152.png": "eae6e0f0c8afb8aaae339e2a569b43e9238e5e6c",
+    "https://pablo-medina.github.io/feriados-ar/icons/icon-192x192.png": "15c4180454633880d98674aa7394656196c91584",
+    "https://pablo-medina.github.io/feriados-ar/icons/icon-384x384.png": "94a915751ef6c9282df9aea405ad679230631814",
+    "https://pablo-medina.github.io/feriados-ar/icons/icon-512x512.png": "1de182f76f7329dfa8f9fcdd1fdcdd695bea6a99",
+    "https://pablo-medina.github.io/feriados-ar/icons/icon-72x72.png": "aa88a6096bd973be7f6d7a5489bfa6bc2463f8c4",
+    "https://pablo-medina.github.io/feriados-ar/icons/icon-96x96.png": "7fb8f59c30ce2ff12c700321a0b39e14b3dc8f95",
+    "https://pablo-medina.github.io/feriados-ar/index.html": "21157beb1fedba15366fb95f155c14cf8fcbb558",
+    "https://pablo-medina.github.io/feriados-ar/main-KO7ENRON.js": "686fcf96747fc3ec464f1a5a96653bd783b427c4",
+    "https://pablo-medina.github.io/feriados-ar/manifest.webmanifest": "5a0be36e3f2aa511d3131da9693c1a2608a733dc",
+    "https://pablo-medina.github.io/feriados-ar/polyfills-SCHOHYNV.js": "d45c76c5960bab3ace7fd6d211b9579456241f8a",
+    "https://pablo-medina.github.io/feriados-ar/styles-2C5K4TSS.css": "a6c5d0ce9b0252b13578a0e62f75debc73fc94a6"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}
