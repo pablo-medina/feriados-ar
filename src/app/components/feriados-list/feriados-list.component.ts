@@ -153,7 +153,6 @@ export class FeriadosListComponent implements OnInit, AfterViewInit {
     this.feriadosService.refresh(this.currentYear()).subscribe({
       next: () => {
         this.pullToRefresh.completeRefresh();
-        this.showSuccessMessage('Datos actualizados correctamente');
       },
       error: () => {
         this.pullToRefresh.completeRefresh();
