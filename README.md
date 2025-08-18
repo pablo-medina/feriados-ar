@@ -33,7 +33,7 @@ Aplicación web moderna y responsive para consultar los feriados de Argentina, d
 
 1. Clona el repositorio:
    ```bash
-   git clone <url-del-repositorio>
+   git clone https://github.com/pablo-medina/feriados-ar.git
    cd feriados-ar
    ```
 
@@ -56,6 +56,23 @@ npm run build
 ```
 
 Los archivos de build se generarán en el directorio `dist/`.
+
+## Despliegue
+
+### GitHub Pages
+
+Para desplegar la aplicación en GitHub Pages:
+
+```bash
+npm run deploy
+```
+
+Este comando:
+1. Construye la aplicación para producción
+2. Configura el base-href para GitHub Pages
+3. Despliega automáticamente a la rama `gh-pages`
+
+**Nota**: Asegúrate de tener habilitado GitHub Pages en la configuración del repositorio.
 
 ## Instalación como PWA
 
@@ -106,6 +123,10 @@ Se puede ajustar la configuración de cache en `ngsw-config.json` para modificar
 ## Licencia
 
 Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
+
+## Autor
+
+**Pablo Medina** - [GitHub](https://github.com/pablo-medina/feriados-ar)
 
 ## Agradecimientos
 
