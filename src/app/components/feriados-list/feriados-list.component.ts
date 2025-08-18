@@ -132,7 +132,6 @@ export class FeriadosListComponent implements OnInit, AfterViewInit {
     this.feriadosService.getFeriados(this.currentYear()).subscribe({
       next: (feriados) => {
         console.log(`Feriados cargados para el año ${this.currentYear()}:`, feriados.length);
-        this.showSuccessMessage(`Feriados del ${this.currentYear()} cargados correctamente`);
       },
       error: (error) => {
         console.error('Error al cargar feriados:', error);
@@ -144,7 +143,7 @@ export class FeriadosListComponent implements OnInit, AfterViewInit {
   onRefresh() {
     this.feriadosService.refresh(this.currentYear()).subscribe({
       next: () => {
-        this.showSuccessMessage('Datos actualizados correctamente');
+        console.log('Datos actualizados correctamente');
       }
     });
   }
