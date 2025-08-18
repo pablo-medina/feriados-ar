@@ -48,6 +48,37 @@
   }
 }
 
+// Estilos para el menú de opciones
+.mat-mdc-menu-panel {
+  background: var(--mat-sys-surface-container) !important;
+  border-radius: var(--app-border-radius) !important;
+  box-shadow: var(--app-shadow-large) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(20px) !important;
+  
+  .mat-mdc-menu-item {
+    color: var(--mat-sys-on-surface) !important;
+    transition: var(--app-transition-fast) !important;
+    
+    &:hover {
+      background: var(--mat-sys-surface-container-high) !important;
+    }
+    
+    &:disabled {
+      opacity: 0.6;
+    }
+    
+    .menu-loading {
+      animation: spin 1s linear infinite;
+      color: var(--mat-sys-primary);
+    }
+  }
+  
+  .mat-divider {
+    border-color: rgba(255, 255, 255, 0.1) !important;
+  }
+}
+
 .progress-bar {
   position: absolute;
   top: 64px;

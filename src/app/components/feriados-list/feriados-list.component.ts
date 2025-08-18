@@ -11,11 +11,15 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatRippleModule } from '@angular/material/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDialog } from '@angular/material/dialog';
 
 import { FeriadosService } from '../../services/feriados.service';
 import { ThemeService } from '../../services/theme.service';
+import { SwUpdateService } from '../../services/sw-update.service';
 import { Feriado } from '../../models/feriado.model';
 import { PullToRefreshComponent } from '../pull-to-refresh/pull-to-refresh.component';
+import { AppInfoDialogComponent } from '../app-info-dialog/app-info-dialog.component';
 
 @Component({
   selector: 'app-feriados-list',
@@ -33,6 +37,7 @@ import { PullToRefreshComponent } from '../pull-to-refresh/pull-to-refresh.compo
     MatRippleModule,
     MatDividerModule,
     MatTooltipModule,
+    MatMenuModule,
     PullToRefreshComponent
   ],
   templateUrl: './feriados-list.component.html',
@@ -41,13 +46,17 @@ import { PullToRefreshComponent } from '../pull-to-refresh/pull-to-refresh.compo
 export class FeriadosListComponent implements OnInit, AfterViewInit {
   private feriadosService = inject(FeriadosService);
   private themeService = inject(ThemeService);
+  private swUpdateService = inject(SwUpdateService);
   private snackBar = inject(MatSnackBar);
+  private dialog = inject(MatDialog);
 
   @ViewChild('pullToRefresh') pullToRefresh!: PullToRefreshComponent;
 
   public currentYear = signal(new Date().getFullYear());
   public selectedTabIndex = signal(0);
   public isInitialized = signal(false);
+  public checkingUpdate = signal(false);
+  public clearingCache = signal(false);
 
   // Computed properties para reactividad
   public feriados = this.feriadosService.feriados;
@@ -145,6 +154,42 @@ export class FeriadosListComponent implements OnInit, AfterViewInit {
       next: () => {
         console.log('Datos actualizados correctamente');
       }
+    });
+  }
+
+  onCheckAppUpdate() {
+    this.checkingUpdate.set(true);
+    this.swUpdateService.checkForUpdate().then(hasUpdate => {
+      if (hasUpdate) {
+        this.showInfoMessage('Nueva versión disponible. Se mostrará una notificación para actualizar.');
+      } else {
+        this.showInfoMessage('La aplicación está actualizada');
+      }
+    }).catch(error => {
+      console.error('Error al verificar actualizaciones:', error);
+      this.showErrorMessage('Error al verificar actualizaciones');
+    }).finally(() => {
+      this.checkingUpdate.set(false);
+    });
+  }
+
+  onForceRefresh() {
+    this.clearingCache.set(true);
+    this.swUpdateService.forceRefresh();
+    // El estado se resetea cuando se recarga la página
+  }
+
+  onShowAppInfo() {
+    const buildDate = new Date();
+    this.dialog.open(AppInfoDialogComponent, {
+      data: {
+        name: 'Feriados Argentina',
+        version: '1.0.0',
+        dataSource: 'API pública Argentina Datos',
+        repository: 'https://github.com/pablo-medina/feriados-ar',
+        buildDate: buildDate.toLocaleString('es-AR')
+      },
+      width: '520px'
     });
   }
 

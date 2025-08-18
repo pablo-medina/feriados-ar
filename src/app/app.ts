@@ -2,6 +2,7 @@ import { Component, signal, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FeriadosListComponent } from './components/feriados-list/feriados-list.component';
 import { ThemeService } from './services/theme.service';
+import { SwUpdateService } from './services/sw-update.service';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,7 @@ import { ThemeService } from './services/theme.service';
 export class App {
   protected readonly title = signal('feriados-ar');
   
-  // Inyectar el servicio de tema para que se inicialice
+  // Inyectar servicios necesarios
   private themeService = inject(ThemeService);
+  private swUpdateService = inject(SwUpdateService);
 }

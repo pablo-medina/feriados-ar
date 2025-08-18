@@ -329,3 +329,23 @@ body.dark-theme {
   border-radius: var(--app-border-radius);
   box-shadow: var(--app-shadow-soft);
 }
+
+/* Ajustes globales para menús en overlay (evitar transparencia) */
+.cdk-overlay-container .mat-mdc-menu-panel {
+  background: rgba(255, 255, 255, 0.98) !important;
+  color: #1f2937 !important; /* slate-800 */
+  border-radius: var(--app-border-radius) !important;
+  box-shadow: var(--app-shadow-medium) !important;
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.cdk-overlay-container .mat-mdc-menu-item {
+  color: inherit !important;
+}
+
+body.dark-theme .cdk-overlay-container .mat-mdc-menu-panel {
+  background: rgba(17, 24, 39, 0.92) !important; /* slate-900 */
+  color: #fff !important;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}

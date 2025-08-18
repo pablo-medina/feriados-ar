@@ -5,3 +5,33 @@
   height: 100vh;
   overflow: hidden;
 }
+
+/* Estilos para el snackbar de actualización */
+.update-snackbar {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-weight: 500;
+  
+  .mat-simple-snackbar-action {
+    color: white;
+    font-weight: 600;
+  }
+}
+
+.error-snackbar {
+  background: #f44336;
+  color: white;
+  
+  .mat-simple-snackbar-action {
+    color: white;
+  }
+}
+
+.success-snackbar {
+  background: #4caf50;
+  color: white;
+  
+  .mat-simple-snackbar-action {
+    color: white;
+  }
+}

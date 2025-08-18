@@ -22,6 +22,43 @@
       aria-label="Actualizar datos">
       <mat-icon [class.spinning]="loading()">refresh</mat-icon>
     </button>
+    <button 
+      mat-icon-button 
+      [matMenuTriggerFor]="menu"
+      matTooltip="Más opciones"
+      aria-label="Más opciones">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    
+    <mat-menu #menu="matMenu">
+      <button 
+        mat-menu-item 
+        (click)="onCheckAppUpdate()"
+        [disabled]="checkingUpdate()">
+        <mat-icon>system_update</mat-icon>
+        <span>Verificar actualización</span>
+        @if (checkingUpdate()) {
+          <mat-icon class="menu-loading">hourglass_empty</mat-icon>
+        }
+      </button>
+      <button 
+        mat-menu-item 
+        (click)="onForceRefresh()"
+        [disabled]="clearingCache()">
+        <mat-icon>clear_all</mat-icon>
+        <span>Limpiar caché</span>
+        @if (clearingCache()) {
+          <mat-icon class="menu-loading">hourglass_empty</mat-icon>
+        }
+      </button>
+      <mat-divider></mat-divider>
+      <button 
+        mat-menu-item 
+        (click)="onShowAppInfo()">
+        <mat-icon>info</mat-icon>
+        <span>Información de la app</span>
+      </button>
+    </mat-menu>
   </mat-toolbar>
 
   <!-- Barra de progreso -->
