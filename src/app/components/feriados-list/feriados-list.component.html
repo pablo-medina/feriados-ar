@@ -1,0 +1,267 @@
+<app-pull-to-refresh (refresh)="onPullRefresh()" #pullToRefresh>
+<div class="feriados-container">
+  <!-- Header con título y acciones -->
+  <mat-toolbar color="primary" class="app-toolbar">
+    <span class="toolbar-title">
+      <mat-icon class="title-icon">calendar_today</mat-icon>
+      Feriados Argentina {{ currentYear() }}
+    </span>
+    <span class="toolbar-spacer"></span>
+    <button 
+      mat-icon-button 
+      (click)="onToggleTheme()"
+      [matTooltip]="isDarkMode() === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'"
+      aria-label="Cambiar tema">
+      <mat-icon>{{ isDarkMode() === 'dark' ? 'light_mode' : 'dark_mode' }}</mat-icon>
+    </button>
+    <button 
+      mat-icon-button 
+      (click)="onRefresh()" 
+      [disabled]="loading()"
+      matTooltip="Actualizar datos"
+      aria-label="Actualizar datos">
+      <mat-icon [class.spinning]="loading()">refresh</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <!-- Barra de progreso -->
+  <mat-progress-bar 
+    mode="indeterminate" 
+    *ngIf="loading()"
+    class="progress-bar">
+  </mat-progress-bar>
+
+  <div class="content-container">
+    <!-- Selector de año -->
+    <div class="year-selector">
+      <mat-chip-listbox [value]="currentYear()">
+        @for (year of getYearOptions(); track year) {
+          <mat-chip-option [value]="year" (click)="onYearChange(year)">
+            <mat-icon class="chip-icon">event</mat-icon>
+            {{ year }}
+          </mat-chip-option>
+        }
+      </mat-chip-listbox>
+    </div>
+
+    <!-- Próximo feriado destacado -->
+    @if (proximoFeriado(); as proximo) {
+      <mat-card class="next-holiday-card" appearance="outlined">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon color="primary">star</mat-icon>
+            Próximo Feriado
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="next-holiday-content">
+            <div class="date-info">
+              <div class="date-circle">
+                <span class="day">{{ getFechaCorta(proximo.fecha).split('/')[0] }}</span>
+                <span class="month">{{ getMes(proximo.fecha) }}</span>
+              </div>
+              <div class="date-details">
+                <h2>{{ proximo.nombre }}</h2>
+                <p class="date-full">
+                  <mat-icon class="inline-icon">schedule</mat-icon>
+                  {{ formatearFecha(proximo.fecha) }}
+                </p>
+                @if (getDiasHastaFeriado(proximo.fecha) > 0) {
+                  <p class="countdown">
+                    <mat-icon class="inline-icon">timer</mat-icon>
+                    En {{ getDiasHastaFeriado(proximo.fecha) }} días
+                  </p>
+                }
+                @if (esFeriadoHoy(proximo.fecha)) {
+                  <p class="today-badge">
+                    <mat-icon class="inline-icon">celebration</mat-icon>
+                    ¡Es hoy!
+                  </p>
+                }
+              </div>
+            </div>
+            <mat-chip class="type-badge" [class]="proximo.tipo === 'inamovible' ? 'type-badge inamovible' : 'type-badge trasladable'">
+              {{ proximo.tipo === 'inamovible' ? 'Inamovible' : 'Trasladable' }}
+            </mat-chip>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    }
+
+    <!-- Estadísticas -->
+    <div class="stats-container">
+      <mat-card class="stat-card" appearance="outlined">
+        <mat-card-content>
+          <div class="stat-content">
+            <mat-icon color="primary">event_note</mat-icon>
+            <div class="stat-info">
+              <span class="stat-number">{{ estadisticas().total }}</span>
+              <span class="stat-label">Total</span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="stat-card" appearance="outlined">
+        <mat-card-content>
+          <div class="stat-content">
+            <mat-icon color="primary">push_pin</mat-icon>
+            <div class="stat-info">
+              <span class="stat-number">{{ estadisticas().inamovibles }}</span>
+              <span class="stat-label">Inamovibles</span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="stat-card" appearance="outlined">
+        <mat-card-content>
+          <div class="stat-content">
+            <mat-icon color="accent">swap_horiz</mat-icon>
+            <div class="stat-info">
+              <span class="stat-number">{{ estadisticas().trasladables }}</span>
+              <span class="stat-label">Trasladables</span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- Pestañas para vista por mes y lista completa -->
+    <mat-tab-group 
+      [(selectedIndex)]="selectedTabIndex"
+      animationDuration="300ms"
+      class="main-tabs">
+      
+      <!-- Pestaña: Por mes -->
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="tab-icon">view_module</mat-icon>
+          Por mes
+        </ng-template>
+        <div class="months-container">
+          @for (mes of feriadosPorMes(); track mes.numero) {
+            <mat-card class="month-card" appearance="outlined">
+              <mat-card-header>
+                <mat-card-title>
+                  <mat-icon class="month-icon">calendar_month</mat-icon>
+                  {{ mes.nombre }}
+                </mat-card-title>
+                <mat-card-subtitle>
+                  <mat-icon class="subtitle-icon">event</mat-icon>
+                  {{ mes.feriados.length }} feriado(s)
+                </mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <div class="holidays-grid">
+                  @for (feriado of mes.feriados; track feriado.fecha) {
+                    <div 
+                      class="holiday-item"
+                      [class.past]="esFeriadoPasado(feriado.fecha)"
+                      [class.today]="esFeriadoHoy(feriado.fecha)"
+                      matRipple>
+                      <div class="holiday-date">
+                        <span class="day">{{ getFechaCorta(feriado.fecha).split('/')[0] }}</span>
+                        <span class="weekday">{{ getDiaSemana(feriado.fecha) }}</span>
+                      </div>
+                      <div class="holiday-info">
+                        <h4>{{ feriado.nombre }}</h4>
+                        <mat-chip 
+                          class="type-badge"
+                          [class]="feriado.tipo === 'inamovible' ? 'type-badge inamovible' : 'type-badge trasladable'">
+                          {{ feriado.tipo === 'inamovible' ? 'Inamovible' : 'Trasladable' }}
+                        </mat-chip>
+                      </div>
+                    </div>
+                  }
+                </div>
+              </mat-card-content>
+            </mat-card>
+          }
+        </div>
+      </mat-tab>
+
+      <!-- Pestaña: Lista completa -->
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="tab-icon">list</mat-icon>
+          Lista completa
+        </ng-template>
+        <div class="complete-list">
+          @for (feriado of feriadosDelAnio(); track feriado.fecha) {
+            <mat-card 
+              class="holiday-card"
+              [class.past]="esFeriadoPasado(feriado.fecha)"
+              [class.today]="esFeriadoHoy(feriado.fecha)"
+              appearance="outlined"
+              matRipple>
+              <mat-card-content>
+                <div class="holiday-card-content">
+                  <div class="date-section">
+                    <div class="date-circle">
+                      <span class="day">{{ getFechaCorta(feriado.fecha).split('/')[0] }}</span>
+                      <span class="month">{{ getMes(feriado.fecha) }}</span>
+                    </div>
+                    <div class="weekday">{{ getDiaSemana(feriado.fecha) }}</div>
+                  </div>
+                  
+                  <div class="info-section">
+                    <h3>{{ feriado.nombre }}</h3>
+                    <p class="full-date">
+                      <mat-icon class="inline-icon">schedule</mat-icon>
+                      {{ formatearFecha(feriado.fecha) }}
+                    </p>
+                    @if (feriado.info) {
+                      <p class="description">
+                        <mat-icon class="inline-icon">info</mat-icon>
+                        {{ feriado.info }}
+                      </p>
+                    }
+                  </div>
+                  
+                  <div class="actions-section">
+                    <mat-chip 
+                      class="type-badge"
+                      [class]="feriado.tipo === 'inamovible' ? 'type-badge inamovible' : 'type-badge trasladable'">
+                      {{ feriado.tipo === 'inamovible' ? 'Inamovible' : 'Trasladable' }}
+                    </mat-chip>
+                    @if (esFeriadoHoy(feriado.fecha)) {
+                      <mat-chip color="warn" class="today-chip">
+                        <mat-icon class="chip-icon">celebration</mat-icon>
+                        ¡Hoy!
+                      </mat-chip>
+                    }
+                    @if (!esFeriadoPasado(feriado.fecha) && !esFeriadoHoy(feriado.fecha)) {
+                      <span class="countdown-text">
+                        <mat-icon class="inline-icon">timer</mat-icon>
+                        En {{ getDiasHastaFeriado(feriado.fecha) }} días
+                      </span>
+                    }
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          }
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+
+    <!-- Estado vacío -->
+    @if (!loading() && feriadosDelAnio().length === 0) {
+      <mat-card class="empty-state" appearance="outlined">
+        <mat-card-content>
+          <div class="empty-content">
+            <mat-icon class="empty-icon">event_busy</mat-icon>
+            <h2>No hay feriados</h2>
+            <p>No se encontraron feriados para el año {{ currentYear() }}</p>
+            <button mat-raised-button color="primary" (click)="onRefresh()">
+              <mat-icon>refresh</mat-icon>
+              Intentar nuevamente
+            </button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    }
+  </div>
+</div>
+</app-pull-to-refresh>

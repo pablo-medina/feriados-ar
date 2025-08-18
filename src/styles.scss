@@ -1,0 +1,331 @@
+
+// Include theming for Angular Material with `mat.theme()`.
+// This Sass mixin will define CSS variables that are used for styling Angular Material
+// components according to the Material 3 design spec.
+// Learn more about theming and how to use it for your application's
+// custom components at https://material.angular.dev/guide/theming
+@use '@angular/material' as mat;
+
+// Configuración base del tema con paleta más vibrante
+// Comentado temporalmente para evitar errores de compilación
+/*
+html {
+  @include mat.theme((
+    color: (
+      primary: mat.define-palette(mat.$blue-palette),
+      accent: mat.define-palette(mat.$orange-palette),
+    ),
+    typography: mat.define-typography-config(),
+    density: 0,
+  ));
+}
+*/
+
+// Variables CSS personalizadas para efectos modernos
+:root {
+  --app-gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --app-gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --app-gradient-success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --app-gradient-warning: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  --app-shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.1);
+  --app-shadow-medium: 0 12px 40px rgba(0, 0, 0, 0.15);
+  --app-shadow-strong: 0 20px 60px rgba(0, 0, 0, 0.2);
+  --app-border-radius: 16px;
+  --app-border-radius-small: 8px;
+  --app-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --app-transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  // Variables de color personalizadas
+  --app-primary: #667eea;
+  --app-accent: #f093fb;
+  --app-success: #4caf50;
+  --app-warning: #ff9800;
+  --app-error: #f44336;
+  --app-info: #2196f3;
+}
+
+// Tema claro (por defecto)
+body, 
+body.light-theme {
+  color-scheme: light;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background-attachment: fixed;
+  color: #333;
+  font-family: 'Inter', 'Roboto', 'Helvetica Neue', sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  
+  // Transiciones suaves para el cambio de tema
+  transition: var(--app-transition);
+}
+
+// Tema oscuro
+body.dark-theme {
+  color-scheme: dark;
+  background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+  background-attachment: fixed;
+  color: #fff;
+  
+  // Transiciones suaves para el cambio de tema
+  transition: var(--app-transition);
+}
+
+/* You can add global styles to this file, and also import other style files */
+
+html, body { 
+  height: 100%; 
+}
+
+body { 
+  margin: 0; 
+  font-family: 'Inter', 'Roboto', "Helvetica Neue", sans-serif; 
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  
+  // Hacer que la aplicación tenga apariencia nativa
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  
+  // Prevenir selección de texto en toda la aplicación
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+// Permitir selección solo en elementos específicos donde sea necesario
+input, textarea, [contenteditable="true"] {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+// Mejoras adicionales para el modo oscuro
+body.dark-theme {
+  // Asegurar que los scrollbars también sean oscuros en navegadores webkit
+  scrollbar-color: #666 #333;
+  
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: #333;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: #666;
+    border-radius: 4px;
+  }
+  
+  &::-webkit-scrollbar-thumb:hover {
+    background: #888;
+  }
+}
+
+// Scrollbars personalizados para tema claro
+body.light-theme {
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+  }
+  
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
+  }
+}
+
+// Clases utilitarias globales
+.glass-effect {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glass-effect-dark {
+  background: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hover-lift {
+  transition: var(--app-transition);
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--app-shadow-medium);
+  }
+}
+
+.pulse-animation {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Mejoras para Material Design
+.mat-mdc-card {
+  border-radius: var(--app-border-radius) !important;
+  transition: var(--app-transition);
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--app-shadow-soft);
+  }
+}
+
+.mat-mdc-button, .mat-mdc-raised-button {
+  border-radius: var(--app-border-radius-small) !important;
+  font-weight: 500 !important;
+  text-transform: none !important;
+  transition: var(--app-transition) !important;
+}
+
+.mat-mdc-chip {
+  border-radius: var(--app-border-radius-small) !important;
+  font-weight: 500 !important;
+}
+
+// Tipografía mejorada
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+// Efectos de focus mejorados para accesibilidad
+*:focus {
+  outline: 2px solid var(--app-primary);
+  outline-offset: 2px;
+}
+
+// Snackbars personalizados
+.success-snackbar {
+  background: linear-gradient(135deg, #4caf50 0%, #45a049 100%) !important;
+  color: white !important;
+  border-radius: var(--app-border-radius-small) !important;
+  box-shadow: var(--app-shadow-medium) !important;
+  
+  .mat-simple-snackbar-action {
+    color: white !important;
+  }
+}
+
+.error-snackbar {
+  background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%) !important;
+  color: white !important;
+  border-radius: var(--app-border-radius-small) !important;
+  box-shadow: var(--app-shadow-medium) !important;
+  
+  .mat-simple-snackbar-action {
+    color: white !important;
+  }
+}
+
+.info-snackbar {
+  background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%) !important;
+  color: white !important;
+  border-radius: var(--app-border-radius-small) !important;
+  box-shadow: var(--app-shadow-medium) !important;
+  
+  .mat-simple-snackbar-action {
+    color: white !important;
+  }
+}
+
+// Mejoras para el modo oscuro
+body.dark-theme {
+  .success-snackbar {
+    background: linear-gradient(135deg, #66bb6a 0%, #4caf50 100%) !important;
+  }
+  
+  .error-snackbar {
+    background: linear-gradient(135deg, #ef5350 0%, #f44336 100%) !important;
+  }
+  
+  .info-snackbar {
+    background: linear-gradient(135deg, #42a5f5 0%, #2196f3 100%) !important;
+  }
+}
+
+// Animaciones de entrada para elementos
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Efectos de hover mejorados
+.hover-glow {
+  transition: var(--app-transition);
+  
+  &:hover {
+    box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+  }
+}
+
+// Mejoras para el scroll
+.smooth-scroll {
+  scroll-behavior: smooth;
+}
+
+// Efectos de glassmorphism mejorados
+.glass-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--app-border-radius);
+  box-shadow: var(--app-shadow-soft);
+}
+
+.glass-card-dark {
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--app-border-radius);
+  box-shadow: var(--app-shadow-soft);
+}
