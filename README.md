@@ -31,23 +31,23 @@ Aplicación web moderna y responsive para consultar los feriados de Argentina, d
 
 ## Instalación
 
-1. Clona el repositorio:
+1. Clonar el repositorio:
    ```bash
    git clone https://github.com/pablo-medina/feriados-ar.git
    cd feriados-ar
    ```
 
-2. Instala las dependencias:
+2. Instalar las dependencias:
    ```bash
    npm install
    ```
 
-3. Inicia el servidor de desarrollo:
+3. Iniciar el servidor de desarrollo:
    ```bash
    npm start
    ```
 
-4. Abre tu navegador en `http://localhost:4200`
+4. Abrir el navegador en `http://localhost:4200`
 
 ## Build para producción
 
@@ -72,7 +72,7 @@ Este comando:
 2. Configura el base-href para GitHub Pages
 3. Despliega automáticamente a la rama `gh-pages`
 
-**Nota**: Asegúrate de tener habilitado GitHub Pages en la configuración del repositorio.
+**Nota**: Es necesario tener habilitado GitHub Pages en la configuración del repositorio.
 
 ## Instalación como PWA
 
@@ -82,17 +82,17 @@ Este comando:
 
 ## Configuración
 
-La aplicación usa la API pública de Argentina Datos para obtener los feriados:
+La aplicación utiliza la API pública de Argentina Datos para obtener los feriados:
 - **Endpoint**: `https://api.argentinadatos.com/v1/feriados/{año}`
 - **Cache**: 365 días de duración (todo el año)
 - **Actualización**: Semanal automática en background
 - **Offline**: Funciona sin conexión usando datos cacheados
-- **Manejo de errores**: Usa caché silenciosamente si falla la actualización automática
+- **Manejo de errores**: Utiliza caché silenciosamente si falla la actualización automática
 
 ## Personalización
 
 ### Colores del tema
-Se puede modificar el esquema de colores en `src/styles.scss`:
+El esquema de colores puede modificarse en `src/styles.scss`:
 
 ```scss
 @use '@angular/material' as mat;
@@ -110,7 +110,7 @@ html {
 ```
 
 ### Configuración del Service Worker
-Se puede ajustar la configuración de cache en `ngsw-config.json` para modificar el comportamiento offline.
+La configuración de cache puede ajustarse en `ngsw-config.json` para modificar el comportamiento offline.
 
 ## Contribuir
 
@@ -123,10 +123,6 @@ Se puede ajustar la configuración de cache en `ngsw-config.json` para modificar
 ## Licencia
 
 Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
-
-## Autor
-
-**Pablo Medina** - [GitHub](https://github.com/pablo-medina/feriados-ar)
 
 ## Agradecimientos
 
