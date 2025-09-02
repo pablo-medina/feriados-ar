@@ -98,7 +98,10 @@ export class FeriadosService {
     const mesTarget = mes !== undefined ? mes : fechaActual.getMonth() + 1;
 
     return this.feriados().filter(feriado => {
-      const fechaFeriado = new Date(feriado.fecha);
+      // Crear la fecha en zona horaria local para evitar problemas de UTC
+      const [anio, mes, dia] = feriado.fecha.split('-').map(Number);
+      const fechaFeriado = new Date(anio, mes - 1, dia); // mes - 1 porque getMonth() devuelve 0-11
+      
       return fechaFeriado.getFullYear() === anioTarget && 
              fechaFeriado.getMonth() + 1 === mesTarget;
     });
@@ -120,8 +123,20 @@ export class FeriadosService {
     hoy.setHours(0, 0, 0, 0);
     
     const feriadosFuturos = this.feriados()
-      .filter(f => new Date(f.fecha) >= hoy)
-      .sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
+      .filter(f => {
+        // Crear la fecha en zona horaria local para evitar problemas de UTC
+        const [anio, mes, dia] = f.fecha.split('-').map(Number);
+        const fechaFeriado = new Date(anio, mes - 1, dia); // mes - 1 porque getMonth() devuelve 0-11
+        return fechaFeriado >= hoy;
+      })
+      .sort((a, b) => {
+        // Crear las fechas en zona horaria local para evitar problemas de UTC
+        const [anioA, mesA, diaA] = a.fecha.split('-').map(Number);
+        const [anioB, mesB, diaB] = b.fecha.split('-').map(Number);
+        const fechaA = new Date(anioA, mesA - 1, diaA);
+        const fechaB = new Date(anioB, mesB - 1, diaB);
+        return fechaA.getTime() - fechaB.getTime();
+      });
     
     return feriadosFuturos.length > 0 ? feriadosFuturos[0] : null;
   }
@@ -132,7 +147,14 @@ export class FeriadosService {
       nombre: f.nombre,
       tipo: f.tipo || 'inamovible',
       info: f.info
-    })).sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
+    })).sort((a, b) => {
+      // Crear las fechas en zona horaria local para evitar problemas de UTC
+      const [anioA, mesA, diaA] = a.fecha.split('-').map(Number);
+      const [anioB, mesB, diaB] = b.fecha.split('-').map(Number);
+      const fechaA = new Date(anioA, mesA - 1, diaA);
+      const fechaB = new Date(anioB, mesB - 1, diaB);
+      return fechaA.getTime() - fechaB.getTime();
+    });
   }
 
   private updateState(feriados: Feriado[], loading: boolean, error: string | null): void {

@@ -69,7 +69,12 @@ export class FeriadosListComponent implements OnInit, AfterViewInit {
   public feriadosDelAnio = computed(() => {
     const feriados = this.feriados();
     const anio = this.currentYear();
-    return feriados.filter(f => new Date(f.fecha).getFullYear() === anio);
+    return feriados.filter(f => {
+      // Crear la fecha en zona horaria local para evitar problemas de UTC
+      const [anioFeriado, mes, dia] = f.fecha.split('-').map(Number);
+      const fechaFeriado = new Date(anioFeriado, mes - 1, dia); // mes - 1 porque getMonth() devuelve 0-11
+      return fechaFeriado.getFullYear() === anio;
+    });
   });
 
   public proximoFeriado = computed(() => {
@@ -77,8 +82,20 @@ export class FeriadosListComponent implements OnInit, AfterViewInit {
     hoy.setHours(0, 0, 0, 0);
     
     const feriadosFuturos = this.feriadosDelAnio()
-      .filter(f => new Date(f.fecha) >= hoy)
-      .sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
+      .filter(f => {
+        // Crear la fecha en zona horaria local para evitar problemas de UTC
+        const [anio, mes, dia] = f.fecha.split('-').map(Number);
+        const fechaFeriado = new Date(anio, mes - 1, dia); // mes - 1 porque getMonth() devuelve 0-11
+        return fechaFeriado >= hoy;
+      })
+      .sort((a, b) => {
+        // Crear las fechas en zona horaria local para evitar problemas de UTC
+        const [anioA, mesA, diaA] = a.fecha.split('-').map(Number);
+        const [anioB, mesB, diaB] = b.fecha.split('-').map(Number);
+        const fechaA = new Date(anioA, mesA - 1, diaA);
+        const fechaB = new Date(anioB, mesB - 1, diaB);
+        return fechaA.getTime() - fechaB.getTime();
+      });
     
     return feriadosFuturos.length > 0 ? feriadosFuturos[0] : null;
   });
@@ -92,9 +109,12 @@ export class FeriadosListComponent implements OnInit, AfterViewInit {
     return meses.map((nombreMes, index) => ({
       nombre: nombreMes,
       numero: index + 1,
-      feriados: this.feriadosDelAnio().filter(f => 
-        new Date(f.fecha).getMonth() === index
-      )
+      feriados: this.feriadosDelAnio().filter(f => {
+        // Crear la fecha en zona horaria local para evitar problemas de UTC
+        const [anio, mes, dia] = f.fecha.split('-').map(Number);
+        const fechaFeriado = new Date(anio, mes - 1, dia); // mes - 1 porque getMonth() devuelve 0-11
+        return fechaFeriado.getMonth() === index;
+      })
     })).filter(mes => mes.feriados.length > 0);
   });
 
@@ -220,7 +240,10 @@ export class FeriadosListComponent implements OnInit, AfterViewInit {
   }
 
   formatearFecha(fechaStr: string): string {
-    const fecha = new Date(fechaStr);
+    // Crear la fecha en zona horaria local para evitar problemas de UTC
+    const [anio, mes, dia] = fechaStr.split('-').map(Number);
+    const fecha = new Date(anio, mes - 1, dia); // mes - 1 porque getMonth() devuelve 0-11
+    
     const opciones: Intl.DateTimeFormatOptions = {
       weekday: 'long',
       year: 'numeric',
@@ -231,7 +254,10 @@ export class FeriadosListComponent implements OnInit, AfterViewInit {
   }
 
   getFechaCorta(fechaStr: string): string {
-    const fecha = new Date(fechaStr);
+    // Crear la fecha en zona horaria local para evitar problemas de UTC
+    const [anio, mes, dia] = fechaStr.split('-').map(Number);
+    const fecha = new Date(anio, mes - 1, dia); // mes - 1 porque getMonth() devuelve 0-11
+    
     return fecha.toLocaleDateString('es-AR', {
       day: '2-digit',
       month: '2-digit'
@@ -239,34 +265,58 @@ export class FeriadosListComponent implements OnInit, AfterViewInit {
   }
 
   getDiaSemana(fechaStr: string): string {
-    const fecha = new Date(fechaStr);
+    // Crear la fecha en zona horaria local para evitar problemas de UTC
+    const [anio, mes, dia] = fechaStr.split('-').map(Number);
+    const fecha = new Date(anio, mes - 1, dia); // mes - 1 porque getMonth() devuelve 0-11
+    
     return fecha.toLocaleDateString('es-AR', { weekday: 'short' });
   }
 
   getMes(fechaStr: string): string {
-    const fecha = new Date(fechaStr);
+    // Crear la fecha en zona horaria local para evitar problemas de UTC
+    const [anio, mes, dia] = fechaStr.split('-').map(Number);
+    const fecha = new Date(anio, mes - 1, dia); // mes - 1 porque getMonth() devuelve 0-11
+    
     return fecha.toLocaleDateString('es-AR', { month: 'short' });
   }
 
   getDiasHastaFeriado(fechaStr: string): number {
     const hoy = new Date();
-    const feriado = new Date(fechaStr);
+    // Crear la fecha del feriado en zona horaria local para evitar problemas de UTC
+    const [anio, mes, dia] = fechaStr.split('-').map(Number);
+    const feriado = new Date(anio, mes - 1, dia); // mes - 1 porque getMonth() devuelve 0-11
+    
+    // Resetear las horas para comparar solo fechas
+    hoy.setHours(0, 0, 0, 0);
+    feriado.setHours(0, 0, 0, 0);
+    
     const diffTime = feriado.getTime() - hoy.getTime();
     return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   }
 
   esFeriadoPasado(fechaStr: string): boolean {
     const hoy = new Date();
-    const feriado = new Date(fechaStr);
+    // Crear la fecha del feriado en zona horaria local para evitar problemas de UTC
+    const [anio, mes, dia] = fechaStr.split('-').map(Number);
+    const feriado = new Date(anio, mes - 1, dia); // mes - 1 porque getMonth() devuelve 0-11
+    
+    // Resetear las horas para comparar solo fechas
     hoy.setHours(0, 0, 0, 0);
     feriado.setHours(0, 0, 0, 0);
+    
     return feriado < hoy;
   }
 
   esFeriadoHoy(fechaStr: string): boolean {
     const hoy = new Date();
-    const feriado = new Date(fechaStr);
-    return hoy.toDateString() === feriado.toDateString();
+    // Crear la fecha del feriado en zona horaria local para evitar problemas de UTC
+    const [anio, mes, dia] = fechaStr.split('-').map(Number);
+    const feriado = new Date(anio, mes - 1, dia); // mes - 1 porque getMonth() devuelve 0-11
+    
+    // Comparar solo año, mes y día, ignorando hora
+    return hoy.getFullYear() === feriado.getFullYear() &&
+           hoy.getMonth() === feriado.getMonth() &&
+           hoy.getDate() === feriado.getDate();
   }
 
   getYearOptions(): number[] {
