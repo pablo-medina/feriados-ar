@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1755543717782,
+  "timestamp": 1759691517275,
   "index": "https://pablo-medina.github.io/feriados-ar/index.html",
   "assetGroups": [
     {
@@ -15,7 +15,7 @@
         "https://pablo-medina.github.io/feriados-ar/chunk-GIS7IS7M.js",
         "https://pablo-medina.github.io/feriados-ar/favicon.ico",
         "https://pablo-medina.github.io/feriados-ar/index.html",
-        "https://pablo-medina.github.io/feriados-ar/main-TVARQGU3.js",
+        "https://pablo-medina.github.io/feriados-ar/main-EGCKN42W.js",
         "https://pablo-medina.github.io/feriados-ar/manifest.webmanifest",
         "https://pablo-medina.github.io/feriados-ar/polyfills-SCHOHYNV.js",
         "https://pablo-medina.github.io/feriados-ar/styles-HEJYMBVH.css"
@@ -74,8 +74,8 @@
     "https://pablo-medina.github.io/feriados-ar/icons/icon-512x512.png": "2bb0afe212cc4c5750dd823818b4e9e852e45a1e",
     "https://pablo-medina.github.io/feriados-ar/icons/icon-72x72.png": "75aab472d7d128873e96920c2e005399ec9a144a",
     "https://pablo-medina.github.io/feriados-ar/icons/icon-96x96.png": "df84a34acdba25cfc6d92d55bf80c2ca3fd4363f",
-    "https://pablo-medina.github.io/feriados-ar/index.html": "1d71effbe526ebd899b26619e062887802f00a78",
-    "https://pablo-medina.github.io/feriados-ar/main-TVARQGU3.js": "61471a103d60ada208243fe8c6ca4ec44a76a2da",
+    "https://pablo-medina.github.io/feriados-ar/index.html": "c7fb0571e7845dac6090e149a8d3cc1a38688f95",
+    "https://pablo-medina.github.io/feriados-ar/main-EGCKN42W.js": "5b5d72476859205d7ce82a4ce2c796038834d3f1",
     "https://pablo-medina.github.io/feriados-ar/manifest.webmanifest": "5a0be36e3f2aa511d3131da9693c1a2608a733dc",
     "https://pablo-medina.github.io/feriados-ar/polyfills-SCHOHYNV.js": "d45c76c5960bab3ace7fd6d211b9579456241f8a",
     "https://pablo-medina.github.io/feriados-ar/styles-HEJYMBVH.css": "5f7506d64f1f3a1ec611410041d649c9eac68e73"
